@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<!--TODO: 
+1) tool-tip information (need to wrap now, place in a tip or opaque box)
+2) Get some nice fonts
+3) Two views - by milemarker (line chart), by geography (map). 
+     A button with a cross-fade effect between two views.
+     Would need to organize segments by mile-marker on thruway (not in dataset)
+     Can I join into the object by RCID?
+4) zoom and pan feature
+-->
+<meta charset="utf-8">
+<style>
+   body {
+    background-color: black;
+   }
+   path {
+       fill: none;
+       stroke-linecap: round; //values are round, butt, square
+       //stroke-width: 3;     //this is set in the js
+   }
+
+   path:hover {
+       //stroke-width: 7px;   //done in js
+   }
+   svg {
+        background-color: black;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        //border: dashed;     //for debug
+   }
+  .displaybox {
+       fill: steelblue;
+       stroke: black;
+       stroke-width: 0;
+       opacity: 0;  //starting value
+  }
+  svg text {
+      fill: white;
+  }
+</style>
+<body>
+<p></p>
+</body>
+<script src="lib/d3.js"></script>
+<!--<script src="http://d3js.org/topojson.v1.min.js"></script>-->
+<script>
+//First establish and render a viewing area
+var width = 800;
+var height = 480;
+var ls = 6;   //baseline linestroke size
+
+var svg = d3.select("body").append("svg")
+    .attr("height", height)
+    .attr("width", width)
+
+var defs = svg.append("defs");
+var filter = defs.append("filter")
+    .attr("id", "f1").attr("y", -5).attr("height", 40);
+filter.append("feGaussianBlur")
+    .attr("in", "SourceGraphic")
+    .attr("stdDeviation", 15);
+
+var g = svg.append("g");
+
+//color scale for styling the highway based on traffic vol
+var colorScale = d3.scale.linear() // <-A
+    .domain([0, 30000, 122000])
+    .range(["blue", "steelblue", "red"]);
+
+//cities marker data (when rendered at 100% (1000x600))
+var cities100 = [{"name" : "Buffalo", "x" : 100, "y" : 170},
+                {"name" : "Lakewood", "x" : 50, "y" : 320},
+                {"name" : "Rochester", "x" : 300, "y" : 130},
+                {"name" : "Syracuse", "x" : 500, "y" : 120},
+                {"name" : "Albany", "x" : 800, "y" : 190},
+                {"name" : "Kingston", "x" : 800, "y" : 380},
+                {"name" : "Tappan Zee Bridge", "x" : 780, "y" : 470},
+                {"name" : "New York City", "x" : 805, "y" : 530}
+             ];
+//cities marker data (when rendered at 80% (800x480))
+var cities80 = [{"name" : "Buffalo", "x" : 120, "y" : 180},
+                {"name" : "Lakewood", "x" : 60, "y" : 330},
+                {"name" : "Rochester", "x" : 320, "y" : 150},
+                {"name" : "Syracuse", "x" : 520, "y" : 140},
+                {"name" : "Albany", "x" : 825, "y" : 205},
+                {"name" : "Kingston", "x" : 805, "y" : 370},
+                {"name" : "Tappan Zee Bridge", "x" : 800, "y" : 485},
+                {"name" : "New York City", "x" : 830, "y" : 540}
+             ];
+
+
+//Now call the data (remember you need a http server running)
+d3.json("data/gis/thruway_aadt.json", function(error, nys) {
+  if (error) return console.error(error);
+  console.log(nys)
+
+  var projection = d3.geo.albers()  //a lot more options here
+    //.center([0, 43.0377])      //SU latitude (for rendering at 100%)
+    //.rotate([76.1340, 0])      //SU longitude
+    .center([0, 43.2777])    //latitude (for rendering at 80%)
+    .rotate([77.1040, 0])    //longitude
+    .parallels([35, 50])
+    .scale(10000)
+    .translate([width / 2, height / 4]);
+
+  var path = d3.geo.path()
+        .projection(projection);
+
+  //finally render the paths
+  g.selectAll("path")
+      .data(nys.features)
+      .enter().append("path")
+      .attr("d", path)
+      .style("stroke", function(d) { return colorScale(d.properties.AADT); })
+      .style("stroke-width", ls);
+
+  //Write svg text that identifies city locations
+  g.selectAll("text")
+      .data(cities80)
+      .enter().append("text")
+      .attr("x", function(d){ return d.x; } )
+      .attr("y", function(d){ return d.y; } )
+      .text(function(d){ return d.name; } );
+
+  //Write svg text for the Graphic title and subtitle
+  svg.append("text")
+      .attr("x", width / 7).attr("y", 50)
+      .text("Daily Traffic Volume on the New York State Thruway, 2012")
+      .attr("class", "svg_title")
+      .style("font-size", "25");
+  svg.append("text")
+      .attr("x", width / 3).attr("y", 50 + 25)
+      .text("Roll Mouse over Highway Sections for more Info")
+      .attr("class", "svg_subtitle")
+      .style("font-size", "15");
+
+
+
+  //tooltip information about each segment
+  //FIXME: Problem with display box and text clearing when I go from one element directly to another.
+  //on mouseover
+  var munidisplay= g.append("text").attr("x", width / 2).attr("y", height / 1.7);
+  var aadtdisplay = g.append("text").attr("x", width / 2).attr("y", height / 1.55);
+  var displaybox = g.append("ellipse").attr("cx", 460).attr("cy", height / 1.65)
+     .attr("height", 150).attr("width", 200).attr("rx", 150).attr("ry",50)
+     .attr("class", "displaybox").attr("filter", "url(#f1)");
+  d3.selectAll("path").on("mouseover", function(d){
+      displaybox.style("opacity", .5);
+      munidisplay.text( stripName(d.properties.MUNI));
+      aadtdisplay.text( d.properties.AADT + " Daily Vehicles" );
+      d3.select(this)
+          .transition().duration(400).ease("linear")
+          .style("stroke-width", ls * 5)
+          .style("stroke", "cyan")
+          .style("opacity", .8)
+          .transition().duration(400).ease("linear")
+          .style("stroke-width", ls * 2)
+          .style("stroke", function(d) { return colorScale(d.properties.AADT); });
+      });
+  //on mouseout
+  d3.selectAll("path").on("mouseout", function(d){
+      var displayduration = 0;
+      d3.select(this)
+          .transition().duration(displayduration).ease("linear")
+          .style("stroke-width", ls)
+          .style("stroke", function(d) { 
+                return colorScale(d.properties.AADT); }) ///not necessary now
+          .style("opacity", 1);
+      });
+
+  //helper function to remove "town of", "city of", "village of" from jurisdtion 
+  function stripName(jurisdictionName){
+    var j = jurisdictionName;
+    if(j.substr(0,4) === "VILL") { 
+      var s = j.substr(11, j.length + 1);
+    } else {
+      var s = j.substr(8, j.length + 1);
+    }
+    return s;
+  }
+  //legend
+  //FIXME: D3 must have a native legend function?
+  var legendX = 50; var legendY = 400; //for 100% rendering 
+  var legendX = 60; var legendY = 400; //for 80% rendering
+  var boxWidth = 15; var boxHeight = 8;
+  g.selectAll("rect")
+    .data([0,25,50,75,100,125])
+    .enter().append("rect")
+    .attr("x", function(d, i){ return legendX+(i * boxWidth);})
+    .attr("y", legendY)
+    .attr("width", boxWidth).attr("height", boxHeight)
+    .style("fill", function(d){ return colorScale(d * 1000); });
+  //scale label
+  g.append("text")
+    .text("Thousand Daily Vehicles")
+    .attr("x", legendX - 10)
+    .attr("y", legendY - boxHeight)
+    .attr("font-size", 12);
+  //beginning of the scale
+  g.append("text")
+    .text("20")
+    .attr("x", legendX + 0.7 * boxWidth)
+    .attr("y", legendY + 3 * boxHeight)
+    .attr("font-size", 10);
+  //upper end of the scale
+  g.append("text")
+    .text("100")
+    .attr("x", legendX + 4.5 * boxWidth)
+    .attr("y", legendY + 3 * boxHeight)
+    .attr("font-size", 10);
+
+
+  //reposition the map within svg element
+  g.attr("transform", "translate(30,0)")
+    .attr("transform", "scale(0.8)");
+});
+
+
+</script>
