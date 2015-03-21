@@ -1,0 +1,41 @@
+  html {
+    min-width: 800px;
+    height: 100%;
+  }
+  body {
+    background-image: url('../img/bg/pvmt.png') ;
+    background-repeat: repeat;
+    height: 100%;
+  }
+  /*Section Divs*/
+  #headerBox {
+    display: block;
+    width: 100%;
+    height: 120px;
+    background-color: black;
+    margin: 0px auto 40px auto;
+    opacity: .6;
+    color: white;
+    border-style: solid;
+    border-color: white;
+    border-width: 2px 0px 2px 0px;
+  }
+  h1 {
+    font-family: 'Comfortaa', cursive;
+    padding: 0px 0px 0px 20px;
+  }
+  h3 {
+    padding: 02px;
+    font-size: .9em;
+    font-family: 'McLaren', cursive;
+  }
+  /*link icons*/
+  img#github {
+    display: inline;
+    float: right;
+    margin: 10px 0px 0px 0px;
+  } 
+  img#twitter {
+    float: right;
+    margin: 10px 16px 16px 16px;
+  }

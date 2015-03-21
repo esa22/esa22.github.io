@@ -6,6 +6,9 @@ function chartObj(){
   /*Chart object adapted from Data Visualization with D3.js Cookbook, Nick Qi Zhu*/
   var _x, _y; //_x and _y are scales, defined when object is consctructed
 
+  /*tell svg object the coordinates of origin on the page*/
+  var _leftPos, _topPos; 
+
   //observations are the dataset, defined by invoking code. 
   var _observations = {}
   var _variableInfo = {}
@@ -21,7 +24,7 @@ function chartObj(){
   _chart.render = function() {
     //append chart svg element if not already present
     if(!_svg) {
-      _svg = d3.select("body").append("svg")
+      _svg = d3.select("div#projectCanvas").append("svg")
           .attr("height", _height)
           .attr("width", _width);
     }
@@ -183,8 +186,8 @@ function chartObj(){
           circleR = Math.sqrt(d.pop1k2012);
           d3.select("#tooltip")
             .style("z-index", "1")
-            .style("left", _x(d.budget1M2012) + _margins.left + "px")
-            .style("top", _y(d.salaryMayor1k2014) + _margins.top + "px")
+            .style("left", _x(d.budget1M2012) + _margins.left + _leftPos + "px")
+            .style("top", _y(d.salaryMayor1k2014) + _margins.top + _topPos - Math.sqrt(d.pop1k2012)*1.15 + "px")
             .transition().duration(200).ease("quad")
             .text(d.muniName)
             .style("opacity", 0.8);
@@ -245,7 +248,7 @@ function chartObj(){
       xUnits = budgetVar[0].unitsEN;
       yLabel = salaryVar[0].varLabelEN;
       yUnits = salaryVar[0].unitsEN;
-      titleText = "City Budgets and Monthly Mayor Salary*";
+      titleText = "City Budget and Monthly Mayor Salary*";
       subTitleText = "Brazilian Municipalities in Sao Paulo Metro Region, 2014";
       noteText = "*Size of Bubble based on Population";
     }
@@ -255,7 +258,7 @@ function chartObj(){
       yLabel = salaryVar[0].varLabelPT;
       yUnits = salaryVar[0].unitsPT;
       //FIXME: These encodings arent working
-      titleText = "Orcamento Municipais e Subsidio Mensal do Prefeito*";
+      titleText = "Orcamento Municipal e Subsidio Mensal do Prefeito*";
       subTitleText = "Municipios na Regiao Metropolitana de Sao Paulo, 2014";
       noteText = "*Tamanho da Bolha eh baseado em Populacao";
       /*
@@ -414,6 +417,16 @@ function chartObj(){
   _chart.y = function (y) {
       if (!arguments.length) return _y;
       _y = y;
+      return _chart;
+  };
+  _chart.leftPos = function (l) {
+      if (!arguments.length) return _leftPos;
+      _leftPos = l;
+      return _chart;
+  };
+  _chart.topPos = function (l) {
+      if (!arguments.length) return _topPos;
+      _topPos = l;
       return _chart;
   };
   return _chart;

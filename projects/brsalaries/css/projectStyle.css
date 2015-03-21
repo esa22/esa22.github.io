@@ -1,0 +1,73 @@
+<style>
+  .axis path, .axis line {
+      fill: none;
+      //stroke: #000;
+      stroke: white;
+      shape-rendering: crispEdges;
+      //shape-rendering: geometricPrecision;
+  }   
+  .axis .grid-line{
+      stroke: white;
+      stroke-opacity: .2;
+      shape-rendering: crispEdges;
+  }
+  .axis path {
+      fill: none;  //hack to get rid of weird element 
+  }
+  #fittedLineSalBudget {
+      shape-rendering: geometricPrecision;
+      stroke: gold;
+      stroke-width: 5px;
+      fill: none;
+      stroke-linecap: round;
+  }
+  .muniBubble {
+      stroke-width: 1px;
+  }
+  circle.RM_Baixada_Santista {
+      //stroke: gold;
+  }
+  div#tooltip {
+      position: absolute;
+      padding: 0px 2px 0px 2px;
+      text-align: center;
+      background: cyan;
+      color: olivedrab;
+      border: 2px solid;
+	    border-radius: 5px;
+  }
+  div.project {
+     position: relative;
+     background-color: black;
+     width: 882px;
+     height: 550;
+     margin-left: auto;
+     margin-right: auto;
+     border: 2px solid lightgray; 
+  }
+  #microSelect, #langSelect {
+     position:absolute
+     left: 0px;
+     bottom: 0px;
+     z-index: 1;
+     background-color: olivedrab;
+     color: lightgray;
+  }
+  svg {
+     margin-left: auto;
+     margin-right: auto;
+     font-family: Arial;
+  }
+  svg g text {
+     fill: lightgray;
+  }
+  svg g text.label {
+      font-size: 16px; 
+  }
+  svg g text.title {
+      font-size: 22px; 
+  }
+  svg g text.subtitle {
+      font-size: 18px; 
+  }
+</style>

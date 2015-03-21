@@ -1,79 +1,53 @@
+<!--Common Header-->
 <!DOCTYPE html>
-<html lang="pt">
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-<style>
-  .axis path, .axis line {
-      fill: none;
-      stroke: #000;
-      shape-rendering: crispEdges;
-      //shape-rendering: geometricPrecision;
-  }   
-  .axis .grid-line{
-      stroke: black;
-      stroke-opacity: .2;
-      shape-rendering: crispEdges;
-  }
-  #fittedLineSalBudget {
-      shape-rendering: geometricPrecision;
-      stroke: cadetblue;
-      stroke-width: 6px;
-      fill: none;
-      stroke-linecap: round;
-  }
-  .muniBubble {
-      stroke-width: 1px;
-  }
-  circle.RM_Baixada_Santista {
-      //stroke: gold;
-  }
-  div#tooltip {
-      position: absolute;
-      padding: 0px 2px 0px 2px;
-      text-align: center;
-      background: cyan;
-      color: olivedrab;
-      border: 2px solid;
-	    border-radius: 5px;
-  }
-  svg g text.label {
-      font-size: 16px; 
-  }
-  svg g text.title {
-      font-size: 22px; 
-  }
-  svg g text.subtitle {
-      font-size: 18px; 
-  }
-</style>
+<html lang="en"><head>
+<title>Salaries of Brazilian Mayors in SP Metro Region</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+<link href='http://fonts.googleapis.com/css?family=Comfortaa|McLaren' rel='stylesheet' type='text/css'>
+<link rel="stylesheet" href="css/headerStyle.css" type="text/css">
+<link rel="stylesheet" href="css/projectStyle.css" type="text/css">
+</head>
+
 <body>
-
-<!--Language Selection-->
-<select id="langSelect" onchange="changeLanguage()">
-  <option value="EN">English
-  <option value="PT">Portugues
-</select>
-<!--MicroRegion Selection-->
-<select id="microSelect" onchange="selectMicroRegion()">
-  <option value="muniBubble">All Micro Regions
-  <option value="Franco_da_Rocha">Franco da Rocha
-  <option value="Guarulhos">Guarulhos
-  <option value="Itapecerica_da_Serra">Itapecerica da Serra
-  <option value="Mogi_das_Cruzes">Mogi das Cruzes
-  <option value="Osasco">Osasco
-  <option value="Santos">Santos
-  <option value="Sao_Paulo">Sao Paulo
-</select>
+<div id="headerBox">
+<a href="../../"><h1>Evan Andrews <br>Experiments in Information Design</a>
+  <a href="https://twitter.com/EvanSAndrews" target="_blank"><img id="twitter" src="img/icons/Twitter_logo_white.png" height="32" width="32"/></a>
+  <a href="https://github.com/esa22" target="_blank"><img id="github" src="img/icons/GitHub-Mark-Light-32px.png"/></a>
+  </h1>
+</div>
+<!--End of Common Header-->
 
 
+<div id="projectCanvas" class="project">
+  <!--MicroRegion Selection-->
+  <select id="microSelect" onchange="selectMicroRegion()">
+    <option value="muniBubble">All Micro Regions
+    <option value="Franco_da_Rocha">Franco da Rocha
+    <option value="Guarulhos">Guarulhos
+    <option value="Itapecerica_da_Serra">Itapecerica da Serra
+    <option value="Mogi_das_Cruzes">Mogi das Cruzes
+    <option value="Osasco">Osasco
+    <option value="Santos">Santos
+    <option value="Sao_Paulo">Sao Paulo
+  </select>
+  <!--Language Selection-->
+  <select id="langSelect" onchange="changeLanguage()">
+    <option value="EN">English
+    <option value="PT">Portugues
+  </select>
+  <!--Chart appended here-->
+</div>
 <p></p>
 </body>
+
 <script src="lib/d3.js"></script>
 <script src="lib/chartObj.js"></script>
-<script src="lib/eUtil.js"></script>
+<!--<script src="lib/eUtil.js"></script>-->
 <script>
 //Select the language
 var lang = "EN"; //default
-if(getUrlParam("l") === "PT"){
+var ll = getUrlParam("l");
+if(ll === "PT" | ll === "pt"){
   //change actual language variable
   lang = "PT";
   //change language selection box
@@ -94,11 +68,16 @@ var hatPathColor = {main: "cadetblue", background: "lightgray"};
 var bubbleFillOpacity = {main: 0.8, flash: 0.9, background: 0.3, highlight: 0.9};
 var bubbleStrokeOpacity = {main: 0.8, flash: 0.9, background: 0.3, highlight: 0.9};
 
+//determine svg origin location on webpage
+var origin = document.getElementById("projectCanvas").getBoundingClientRect();
+
 //initialize chart object
 //range stays at 0 to 30. Can zoom in or out on x. Good values are 180, 270, and 3300
 var chart = chartObj()
         .y(d3.scale.linear().domain([0, 30]))
-        .x(d3.scale.linear().domain([0, 270]));
+        .x(d3.scale.linear().domain([0, 270]))
+        .leftPos(origin.left)
+        .topPos(origin.top);
 
 //Load Data and Execute Script
 d3.tsv("data/salaryData.txt")
@@ -197,7 +176,6 @@ function selectMicroRegion(){
       .style("opacity", "0.5")
       .style("stroke", hatPathColor.background);
   }
-  
 }
 
 //get url parameters
@@ -207,9 +185,7 @@ function getUrlParam(name){
 }
 </script>
 
-
 <!--TODO
 -(1) Address encoding for title 
--test across browsers (firefox not showing bubbles for some reason)
--Put into my website format
+-(2) test across browsers (firefox not showing bubbles for some reason)
 -->

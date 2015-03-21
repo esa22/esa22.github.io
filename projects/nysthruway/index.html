@@ -1,59 +1,43 @@
-<!DOCTYPE html>
 <!--TODO: 
-1) tool-tip information (need to wrap now, place in a tip or opaque box)
-2) Get some nice fonts
-3) Two views - by milemarker (line chart), by geography (map). 
+1) Two views - by milemarker (line chart), by geography (map). 
      A button with a cross-fade effect between two views.
      Would need to organize segments by mile-marker on thruway (not in dataset)
      Can I join into the object by RCID?
-4) zoom and pan feature
+2) zoom and pan feature
 -->
-<meta charset="utf-8">
-<style>
-   body {
-    background-color: black;
-   }
-   path {
-       fill: none;
-       stroke-linecap: round; //values are round, butt, square
-       //stroke-width: 3;     //this is set in the js
-   }
+<!DOCTYPE html>
+<html lang="en"><head>
+<title>NYS Thurway Traffic</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+<link href='http://fonts.googleapis.com/css?family=Comfortaa|McLaren' rel='stylesheet' type='text/css'>
+<link rel="stylesheet" href="css/headerStyle.css" type="text/css">
+<link rel="stylesheet" href="css/projectStyle.css" type="text/css">
+</head>
 
-   path:hover {
-       //stroke-width: 7px;   //done in js
-   }
-   svg {
-        background-color: black;
-        display: block;
-        margin-left: auto;
-        margin-right: auto;
-        //border: dashed;     //for debug
-   }
-  .displaybox {
-       fill: steelblue;
-       stroke: black;
-       stroke-width: 0;
-       opacity: 0;  //starting value
-  }
-  svg text {
-      fill: white;
-  }
-</style>
 <body>
+<div id="headerBox">
+<a href="../../"><h1>Evan Andrews <br>Experiments in Information Design</a>
+  <a href="https://twitter.com/EvanSAndrews" target="_blank"><img id="twitter" src="img/icons/Twitter_logo_white.png" height="32" width="32"/></a>
+  <a href="https://github.com/esa22" target="_blank"><img id="github" src="img/icons/GitHub-Mark-Light-32px.png"/></a>
+  </h1>
+</div>
+<!--End of Common Header-->
+
 <p></p>
 </body>
 <script src="lib/d3.js"></script>
-<!--<script src="http://d3js.org/topojson.v1.min.js"></script>-->
 <script>
 //First establish and render a viewing area
 var width = 800;
 var height = 480;
 var ls = 6;   //baseline linestroke size
 
+//create the svg element
 var svg = d3.select("body").append("svg")
     .attr("height", height)
     .attr("width", width)
 
+//filter for tooltip display 
 var defs = svg.append("defs");
 var filter = defs.append("filter")
     .attr("id", "f1").attr("y", -5).attr("height", 40);
@@ -68,16 +52,6 @@ var colorScale = d3.scale.linear() // <-A
     .domain([0, 30000, 122000])
     .range(["blue", "steelblue", "red"]);
 
-//cities marker data (when rendered at 100% (1000x600))
-var cities100 = [{"name" : "Buffalo", "x" : 100, "y" : 170},
-                {"name" : "Lakewood", "x" : 50, "y" : 320},
-                {"name" : "Rochester", "x" : 300, "y" : 130},
-                {"name" : "Syracuse", "x" : 500, "y" : 120},
-                {"name" : "Albany", "x" : 800, "y" : 190},
-                {"name" : "Kingston", "x" : 800, "y" : 380},
-                {"name" : "Tappan Zee Bridge", "x" : 780, "y" : 470},
-                {"name" : "New York City", "x" : 805, "y" : 530}
-             ];
 //cities marker data (when rendered at 80% (800x480))
 var cities80 = [{"name" : "Buffalo", "x" : 120, "y" : 180},
                 {"name" : "Lakewood", "x" : 60, "y" : 330},
@@ -89,16 +63,13 @@ var cities80 = [{"name" : "Buffalo", "x" : 120, "y" : 180},
                 {"name" : "New York City", "x" : 830, "y" : 540}
              ];
 
-
 //Now call the data (remember you need a http server running)
-d3.json("data/gis/thruway_aadt.json", function(error, nys) {
+d3.json("data/thruway_aadt.json", function(error, nys) {
   if (error) return console.error(error);
   console.log(nys)
 
   var projection = d3.geo.albers()  //a lot more options here
-    //.center([0, 43.0377])      //SU latitude (for rendering at 100%)
-    //.rotate([76.1340, 0])      //SU longitude
-    .center([0, 43.2777])    //latitude (for rendering at 80%)
+    .center([0, 43.2777])    //latitude rotation
     .rotate([77.1040, 0])    //longitude
     .parallels([35, 50])
     .scale(10000)
@@ -134,8 +105,6 @@ d3.json("data/gis/thruway_aadt.json", function(error, nys) {
       .text("Roll Mouse over Highway Sections for more Info")
       .attr("class", "svg_subtitle")
       .style("font-size", "15");
-
-
 
   //tooltip information about each segment
   //FIXME: Problem with display box and text clearing when I go from one element directly to another.
@@ -179,6 +148,7 @@ d3.json("data/gis/thruway_aadt.json", function(error, nys) {
     }
     return s;
   }
+
   //legend
   //FIXME: D3 must have a native legend function?
   var legendX = 50; var legendY = 400; //for 100% rendering 
@@ -210,11 +180,8 @@ d3.json("data/gis/thruway_aadt.json", function(error, nys) {
     .attr("y", legendY + 3 * boxHeight)
     .attr("font-size", 10);
 
-
   //reposition the map within svg element
   g.attr("transform", "translate(30,0)")
     .attr("transform", "scale(0.8)");
 });
-
-
 </script>
