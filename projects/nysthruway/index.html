@@ -99,12 +99,12 @@ d3.json("data/thruway_aadt.json", function(error, nys) {
       .attr("x", width / 7).attr("y", 50)
       .text("Daily Traffic Volume on the New York State Thruway, 2012")
       .attr("class", "svg_title")
-      .style("font-size", "25");
+      .style("font-size", "25px");
   svg.append("text")
       .attr("x", width / 3).attr("y", 50 + 25)
       .text("Roll Mouse over Highway Sections for more Info")
       .attr("class", "svg_subtitle")
-      .style("font-size", "15");
+      .style("font-size", "15px");
 
   //tooltip information about each segment
   //FIXME: Problem with display box and text clearing when I go from one element directly to another.
@@ -166,19 +166,19 @@ d3.json("data/thruway_aadt.json", function(error, nys) {
     .text("Thousand Daily Vehicles")
     .attr("x", legendX - 10)
     .attr("y", legendY - boxHeight)
-    .attr("font-size", 12);
+    .attr("font-size", "12px");
   //beginning of the scale
   g.append("text")
     .text("20")
     .attr("x", legendX + 0.7 * boxWidth)
     .attr("y", legendY + 3 * boxHeight)
-    .attr("font-size", 10);
+    .attr("font-size", "10px");
   //upper end of the scale
   g.append("text")
     .text("100")
     .attr("x", legendX + 4.5 * boxWidth)
     .attr("y", legendY + 3 * boxHeight)
-    .attr("font-size", 10);
+    .attr("font-size", "10px");
 
   //reposition the map within svg element
   g.attr("transform", "translate(30,0)")
