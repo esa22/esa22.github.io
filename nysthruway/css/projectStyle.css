@@ -1,0 +1,48 @@
+<style>
+   body {
+     background-color: black;
+   }
+   path {
+     fill: none;
+     stroke-linecap: round; //values are round, butt, square
+     //stroke-width: 3;     //this is set in the js
+   }
+
+   path:hover {
+     //stroke-width: 7px;   //done in js
+   }
+   div#narrative {
+     width: 800px;
+     margin: 5px 0px 0px 0px;
+     color: seashell;
+     padding: 0px 15px 0px 15px;
+     text-align: justify;
+     text-justify: inter-word;
+     box-sizing: border-box;
+     font-family: Verdana, Arial;
+   }
+   svg, div#narrative {
+     background-color: black;
+     display: block;
+     margin-left: auto;
+     margin-right: auto;
+     border: 2px solid lightgray; 
+   }
+   svg text {
+     font-family: Arial;
+     //font-size: 10px;
+   }
+   div#narrative a {
+     color: steelblue;
+     text-decoration: underline; 
+   }
+   .displaybox {
+     fill: steelblue;
+     stroke: black;
+     stroke-width: 0;
+     opacity: 0;  //starting value
+   }
+   svg text {
+     fill: white;
+   }
+</style>

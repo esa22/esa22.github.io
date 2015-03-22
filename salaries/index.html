@@ -1,0 +1,231 @@
+﻿<!--Common Header-->
+<!DOCTYPE html>
+<html lang="en"><head>
+<title>Salaries of Brazilian Mayors in SP Metro Region</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+<link href='http://fonts.googleapis.com/css?family=Comfortaa|McLaren' rel='stylesheet' type='text/css'>
+<link rel="stylesheet" href="css/headerStyle.css" type="text/css">
+<link rel="stylesheet" href="css/projectStyle.css" type="text/css">
+<script type="text/javascript" src="../lib/ga.js"></script>
+</head>
+
+<body>
+<div id="headerBox">
+<a href="../"><h1>Evan Andrews <br>Experiments in Information Design</a>
+  <a href="https://twitter.com/EvanSAndrews" target="_blank"><img id="twitter" src="img/icons/Twitter_logo_white.png" height="32" width="32"/></a>
+  <a href="https://github.com/esa22" target="_blank"><img id="github" src="img/icons/GitHub-Mark-Light-32px.png"/></a>
+  </h1>
+</div>
+<!--End of Common Header-->
+
+
+<div id="projectCanvas" class="project">
+  <!--MicroRegion Selection-->
+  <select id="microSelect" onchange="selectMicroRegion()">
+    <option value="muniBubble">All Micro Regions
+    <option value="Franco_da_Rocha">Franco da Rocha
+    <option value="Guarulhos">Guarulhos
+    <option value="Itapecerica_da_Serra">Itapecerica da Serra
+    <option value="Mogi_das_Cruzes">Mogi das Cruzes
+    <option value="Osasco">Osasco
+    <option value="Santos">Santos
+    <option value="Sao_Paulo">Sao Paulo
+  </select>
+  <!--Language Selection-->
+  <select id="langSelect" onchange="changeLanguage()">
+    <option value="EN">English
+    <option value="PT">Portugues
+  </select>
+  <!--Chart appended here-->
+</div>
+<p></p>
+<div class="narrative" id="narrativeEN">
+<p>This chart shows the salaries of mayors in 43 municipalities located in the metropolitan São Paulo region. Their salary figures were gathered from the websites of each municipal legislature, who officially set the wages of the mayor and his or her staff. <a href="http://www.tesouro.fazenda.gov.br/contas-anuais">Municipal budget information</a> comes from Finances Brasil (Finbra), and the <a href="http://www.ibge.gov.br/home/mapa_site/mapa_site.php#populacao">population data</a> is from the Census Bureau (IBGE). Of the 43 municipalities, mayoral salary proved impossible to find online for 7 cities, which appear in the graphic as grey bubbles on the horizontal axis.</p>
+
+<p>The motivation for this project came from noticing the large variation in mayoral salaries in Brazil. Some mayors earn R$ 5,000 per month (about 7 times the minimum wage), while others earn R$ 26,700 per month, which is equivalent to the salary of the President of the Republic. Most public debate found in newspaper articles, magazines, and even online comments typically cite the city's population and the city's budget as the most important factors in determining the mayors' wages. The general sense appears to be that mayors should be compensated for managing more complex cities, understood either in terms of population or in terms of budget size. Geographic size, which one could also argue adds to government complexity, almost never comes up in public debate as an important consideration in mayor salary determination. Upon comparing these factors, it turns out that budget size is a significantly stronger predictor of mayor salary than population. This is why the above chart places municipal budget on the horizontal axis and fits a salary prediction line to the (log of) the municipal budget. Meanwhile, population is included in the graphic as the size of each city's "bubble."</p>
+
+<p><a href="http://exame.abril.com.br/brasil/noticias/os-10-prefeitos-com-os-maiores-salarios-do-brasil/lista">Journalistic exposition on mayoral salaries</a> has so far focused on salaries in the biggest cities, across the entire country. There are two serious problems with this type of analysis. First, each city is located in a drastically different labor market. When we look at the mayoral salary in Fortaleza compared with that of Porto Alegre, salaries will necessarily differ due to differences in cost of living, other employment opportunities, the pool of qualified candidates, as well as many other regional factors. With this much "legitimate noise," it will be impossible to detect  illegitimate salary variation. The second problem is that by excluding small cities, we lose the ability to understand how the most important factor (city size), affects mayor salaries. Equally important, the analysis will miss a major opportunity to spot outliers in this dimension, where small cities are paying a mayor much higher than expected. To address both of these issues, the graphic presented here includes ALL municipalities from one metropolitan region.</p>
+
+<p>The relationship between city budget and mayor salary is evident in the chart, however there is still significant unexplained variation. Additionally, there are a couple cases of conspicuous outliers. The municipality of Cotia stands out like a sore thumb in the upper left corner. It is not a particularly large municipality in terms of budget or population, and yet the mayor earns the same salary as the President of the Republic, which is the wage-ceiling for public-sector executives in Brazil. The mayors of Osasco and Barueri (neighbors in the graphic and in the real world), both earn at the ceiling of R$ 26,700. A useful exercise for someone seriously concerned with these discrepancies might be to compare Osasco and Barueri to the similarly sized municipalities of Santo André (R$ 23,900) and to Santos (R$ 18,000). The question at hand would be whether there are other factors that justify the difference in executive pay. Of course, a few thousand Reais per month is not a large sum of money to the municipality - so why does any of this matter?</p>
+
+<p>The salary of the mayor is important for practical and for symbolic reasons. On the practical side, the mayor's salary is taken as a benchmark from which the salaries of other public servants are set.  Changes in the mayor's salary have cascading effects that could save or cost the municipality a significant amount of money.  Symbolically, an unnecessarily large salary for the mayor seeds disaffection with government and politicians, a problem that Brazil has struggled to overcome in recent years.  The first step towards progress is transparency, and Brazil has made great strides on this point. Without their <a href="http://www.opengovpartnership.org/country/brazil">open-government efforts</a> (the result of a partnership between the US and Brazilian Governments), this mini-project and others like it would not be possible.</p> 
+</div>
+
+<div class="narrative" id="narrativePT">
+<p>O gráfico encima mostra os subsídios mensais dos prefeitos de 43 municípios na Região Metropolitana de São Paulo. Os dados foram pesquisados nos sites da internet de cada câmara municipal, pois é elas quem decidem os subsídios do prefeito, vice-prefeito, ministros e dos assessores deles. <a href="http://www.tesouro.fazenda.gov.br/contas-anuais">As informações sobre o orçamento municipal</a> vêm do Finanças Brasil (FINBRA), e os <a href="http://www.ibge.gov.br/home/mapa_site/mapa_site.php#populacao">dados sobre população</a> vêm do Instituto Brasileiro de Geografía e Estatística (IBGE). Dos 43 municípios, os súbsídios do prefeito foram impossível de encontrar na internet para 7 cidades, quem agora aparecem no gráfico como bolhas cinzas no eixo horizontal.</p>
+
+<p>A motivação para fazer este projeto veio da realização que tem uma variação enorme entre os subsídios dos prefeitos no Brasil. Alguns prefeitos ganham R$ 5.000 por mês (sete vezes o salário mínimo), enquanto alguns ganham R$ 26,700 por mês, o equivalente ao salário da Presidente da República (e o teto jurídico do que prefeitos podem ganhar). Os debates públicos focalizam em dois fatores principais que decidam os salários. Artigos em journais e em revistas, e até nos commentários nestes sites, colocam a população do município e o orçamento municipal como os fatores mais importantes na fixação dos subsídios. Parece que o sentimento geral é que o prefeito merece compensação proporcional à complexidade do trabalho dele, e o orçamento e o tamanho da população são as medidas mais relevante para essa complexidade. Por outro lado, estensão geográfica, que também pode ser um fator adicional na complexidade do trabalho, é raramento colocado como um fator para que o prefeito deve receber mais ou menos remuneração. Numa comparação dos fatores, acontece que é o orçamento público que melhor explica os subsídios atuias. Por isso, o gráfico coloca orçamento municípal no eixo horizontal e estima uma linha predita para o salário, baseado no (logaritmo de) orçamento municipal. A população do município se manifesta no gráfico como o tamanho da bolha de cada cidade.  </p>
+
+<p><a href="http://exame.abril.com.br/brasil/noticias/os-10-prefeitos-com-os-maiores-salarios-do-brasil/lista">Tratamento jornalistico sobre subsídios dos prefeitos</a>, até agora, tem focalizado nos salários nas grandes cidades do Brasil, através do país inteiro. Existe dois problemas sérios com esse tipo de análise.  Primeiro, cada cidade é localizada num mercado de trabalho bem distinto. Se a gente fizer uma comparação entre o salário do prefeito de Fortaleza com o de Porto Alegre, qualquer diferença desnecessario vai ser escondida por as diferenças legítimas entre os mercados regionais por conta de custo de vida, outros oportunidade de emprego, o número de candidátos qualificados, e outros fatores regionais. O segundo problema é que com a exclusão de cidades pequenas, a gente perde a habilidade de entender como o fator principal afeita salários do prefeitos. Sem incluir cidades pequenas, não há como identificar municipios discrepantes (outliers), onde cidades pequenas pagam além do que seria esperada dado o tamanho deles. Para tratar esses problemas de uma forma mais rigorosa, o gráfico aqui apresenta TODOS os municípios de uma região metropolitana só.</p>     
+
+<p>o relaçionamento entre o orçamento e o subsídio do prefeito é evidente, porém ainda existe muita variação entre cidades similares. Além disso, existe alguns casos de cidades discrepantes. O município de Cotia é muito conspícuo no canto superior à esquerda, ganhando R$ 26,700 por mês.  Não é uma cidade muito grande em termos de orçamento, nem em termos de população. Mesmo assim, o prefeito lá ganha o mesmo salário do que o Presidente da Republica - o teto para o subsídio do prefeitos. Isso não quer dizer que não tem um motivo legítimo para esse valor em Cotia, só que algo diferente está acontecendo em Cotia quanto remuneração do prefeito (e talvez de outros oficias públicas). Os prefeitos de Osasco e Barueri (vizinhos tanto no gráfico quanto na vida real) ganham ao teto de R$ 26,700, acima do que a gente esperaria dado o orçamento e a população deles. Seria um bom projeto para alguem interessado com esses números fazer um contraste com os municípios similares de Santo André (onde o prefeito ganha R$ 23,900) e com Santos (R$ 18,000). A pergunta na mesa seria se tiver outros fatores que justificam as diferenças em remuneração do prefeito. Claro, cinco mil Reais por mês não é muito dinheiro para esses municípios, então por que a gente deve se importar com tudo isso?</p>
+
+<p>O subsídio do prefeito é importante por motivos praticais e por motivos simbólicos. Quanto ao lado prático, o salário do prefeito é a referência para os outros subsídios de oficias públicas no município. Quanto mais o prefeito ganha, o Vice e os ministros e as cargas de confiaça terão subsídios maiores.  Ao lado simbólico, um salário alto sem justificativa aceita pelo público criará desafeto com o governo e políticos.  Brasil tem lutado muito contra isso nos últimos anos. O primeiro passo para progressar nesta área é transparência, e o Brasil têm avançado bastante neste ponto. Sem os esforços do governo federal com <a href="http://www.opengovpartnership.org/country/brazil">o iniciativo de governo aberto</a> (uma colaboração entre os governo Brasilieiro e o governo dos Estados Unidos), este projeto e outros similares não teria condições de sair do papel.</p> 
+</div>
+
+</body>
+
+<script src="lib/d3.js"></script>
+<script src="lib/chartObj.js"></script>
+<!--<script src="lib/eUtil.js"></script>-->
+<script>
+//Select the language
+var lang = "EN"; //default
+changeNarrativeLang(); //default
+var ll = getUrlParam("l");
+if(ll === "PT" | ll === "pt"){
+  //change actual language variable
+  lang = "PT";
+  //change language selection box
+  document.getElementById("langSelect").selectedIndex = 1;
+  //change language in other selection box
+  changeMicroLang();
+  //toggle language of narrative
+  changeNarrativeLang();
+}
+
+//First establish and render a viewing area
+var width = 960;
+var height = 600;
+
+//bubble coloring scheme
+var bubbleColors = {main: "olivedrab", flash: "cyan", highlight: "yellow", background: "lightgray"};
+var bubbleStrokeColor = {main: "gold", flash: "olivedrab", highlight: "olivedrab", background: "lightgray"};
+var hatPathColor = {main: "gold", background: "lightgray"};
+var bubbleFillOpacity = {main: 0.8, flash: 0.9, background: 0.3, highlight: 0.9};
+var bubbleStrokeOpacity = {main: 0.8, flash: 0.9, background: 0.3, highlight: 0.9};
+
+//determine svg origin location on webpage
+var origin = document.getElementById("projectCanvas").getBoundingClientRect();
+
+//initialize chart object
+//range stays at 0 to 30. Can zoom in or out on x. Good values are 180, 270, and 3300
+var chart = chartObj()
+        .y(d3.scale.linear().domain([0, 30]))
+        .x(d3.scale.linear().domain([0, 270]))
+        .leftPos(origin.left)
+        .topPos(origin.top);
+
+//Load Data and Execute Script
+d3.tsv("data/salaryData.txt")
+  .row(function(d) {
+  return {
+    muniId: d.muniId, 
+    muniName: d.muniName, 
+    metroRegion: d.metroRegion, 
+    microName: d.microName, 
+    partyOfMayor2012: d.partyOfMayor2012, 
+    pop1k2012: +d.pop1k2012,    //convert all vars below to number
+    budget1M2012: +d.budget1M2012, 
+    salaryMayor1k2014: +d.salaryMayor1k2014, 
+    fitBudgetPop: +d.fitBudgetPop, 
+    gapBudgetPop: +d.gapBudgetPop, 
+    fitSalaryPop: +d.fitSalaryPop, 
+    gapSalaryPop: +d.gapSalaryPop, 
+    fitSalaryBudget: +d.fitSalaryBudget, 
+    gapSalaryBudget: +d.gapSalaryBudget, 
+    flagSalaryMissing: +d.flagSalaryMissing, 
+    flagBudgetMissing: +d.flagBudgetMissing
+  }; 
+})
+.get(function(error, data) {  
+  //load variable names
+  d3.tsv("data/varLabels.txt", function(error, varInfo) {
+    console.log(varInfo);
+    //Use "data" as dataset variable and "varInfo" for variable labels.
+    //load data
+    chart.observations(data)
+         .variableInfo(varInfo);
+    //render the chart
+    chart.render();
+  });
+  //console.log(data[0]);   //see first row of dataset
+  //console.log(data);   //see all of dataset
+  //d3.select("p").text(data[0].muniName);
+});
+
+//reset the language
+function changeLanguage(){
+  lang = document.getElementById("langSelect").value;
+  changeMicroLang();
+  chart.render();
+  changeNarrativeLang();
+}
+
+function changeMicroLang(){
+  //Language in Selection Box
+  var txt;
+  if(lang === "EN"){
+    txt = "All MicroRegions";
+  }
+  if(lang === "PT"){
+    txt = "Todos os MicroRegioes";
+  }
+  document.getElementById("microSelect").children[0].innerHTML = txt;
+}
+
+function changeNarrativeLang(){
+  if(lang === "EN"){
+    //toggle language of narrative
+    d3.selectAll("#narrativePT")
+      .style("display", "none");
+    d3.selectAll("#narrativeEN")
+      .style("display", "block");
+  }
+  if(lang === "PT"){
+    //toggle language of narrative
+    d3.selectAll("#narrativePT")
+      .style("display", "block");
+    d3.selectAll("#narrativeEN")
+      .style("display", "none");
+  }
+}
+
+var microRegion = "muniBubble";  //global var default
+function selectMicroRegion(){
+  microRegion = document.getElementById("microSelect").value;
+  if(microRegion == "muniBubble"){
+    //default settings
+    d3.selectAll("." + microRegion)
+      .transition().duration(400).ease("quad")
+      .style("fill", bubbleColors.main)
+      .style("opacity", bubbleFillOpacity.main)
+      .style("stroke", bubbleStrokeColor.main)
+      .style("stroke-opacity", bubbleStrokeOpacity.main);
+    d3.selectAll(".dataMissing")
+      .transition().duration(400).ease("quad")
+      .style("fill", bubbleColors.background)
+      .style("opacity", bubbleFillOpacity.background)
+      .style("stroke", bubbleStrokeColor.background)
+      .style("stroke-opacity", bubbleStrokeOpacity.background);
+    d3.select("#fittedLineSalBudget")
+      .transition().duration(400).ease("quad")
+      .style("opacity", "0.8")
+      .style("stroke", hatPathColor.main);
+  } else {
+    //selection highligting
+    d3.selectAll(".muniBubble")
+      .transition().duration(400).ease("quad")
+      .style("fill", bubbleColors.background)
+      .style("opacity", bubbleFillOpacity.background)
+      .style("stroke", bubbleStrokeColor.background)
+      .style("stroke-opacity", bubbleStrokeOpacity.background);
+    d3.selectAll("." + microRegion)
+      .transition().duration(400).ease("quad")
+      .style("fill", bubbleColors.highlight)
+      .style("opacity", bubbleFillOpacity.highlight)
+      .style("stroke", bubbleStrokeColor.highlight)
+      .style("stroke-opacity", bubbleStrokeOpacity.highlight);
+    d3.select("#fittedLineSalBudget")
+      .transition().duration(400).ease("quad")
+      .style("opacity", "0.5")
+      .style("stroke", hatPathColor.background);
+  }
+}
+
+//get url parameters
+function getUrlParam(name){
+   if(name=(new RegExp('[?&]'+encodeURIComponent(name)+'=([^&]*)')).exec(location.search))
+      return decodeURIComponent(name[1]);
+}
+</script>

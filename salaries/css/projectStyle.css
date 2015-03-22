@@ -36,7 +36,7 @@
       border: 2px solid;
 	    border-radius: 5px;
   }
-  div.project {
+  div.project, div.narrative {
      position: relative;
      background-color: black;
      width: 882px;
@@ -44,6 +44,19 @@
      margin-left: auto;
      margin-right: auto;
      border: 2px solid lightgray; 
+  }
+  div.narrative {
+     display: block;
+     color: lightgray;
+     padding: 0px 15px 0px 15px;
+     text-align: justify;
+     text-justify: inter-word;
+     box-sizing: border-box;
+     font-family: Verdana, Arial;
+  }
+  div.narrative a {
+     color: gold;
+     text-decoration: underline;
   }
   #microSelect, #langSelect {
      position:absolute

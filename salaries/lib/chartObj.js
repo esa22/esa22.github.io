@@ -1,4 +1,4 @@
-//Chart Object for Brazilian Muni Mayor Salaries
+﻿//Chart Object for Brazilian Muni Mayor Salaries
 //Evan Andrews
 //March 2015
 
@@ -258,13 +258,13 @@ function chartObj(){
       yLabel = salaryVar[0].varLabelPT;
       yUnits = salaryVar[0].unitsPT;
       //FIXME: These encodings arent working
-      titleText = "Orcamento Municipal e Subsidio Mensal do Prefeito*";
-      subTitleText = "Municipios na Regiao Metropolitana de Sao Paulo, 2014";
-      noteText = "*Tamanho da Bolha eh baseado em Populacao";
+      titleText = "Orçamento Municipal e Subsídio Mensal do Prefeito*";
+      subTitleText = "Municípios na Região Metropolitana de São Paulo, 2014";
+      noteText = "*Tamanho da Bolha é baseado em População";
       /*
-      titleText = "Or�amento Municipais e Subs�dio Mensal do Prefeito*";
-      subTitleText = "Munic�pios na Regi�o Metropolitana de S�o Paulo, 2014";
-      noteText = "*Tamanho da Bolha � baseado em Popula��o";
+      titleText = "Orçamento Municipais e Subsídio Mensal do Prefeito*";
+      subTitleText = "Municípios na Região Metropolitana de São Paulo, 2014";
+      noteText = "*Tamanho da Bolha é baseado em População";
       */
     }
     //place the text on the page

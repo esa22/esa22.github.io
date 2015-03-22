@@ -1,10 +1,7 @@
-<!--TODO: 
-1) Two views - by milemarker (line chart), by geography (map). 
+<!--TODO: 1) Two views - by milemarker (line chart), by geography (map). 
      A button with a cross-fade effect between two views.
      Would need to organize segments by mile-marker on thruway (not in dataset)
-     Can I join into the object by RCID?
-2) zoom and pan feature
--->
+2) zoom and pan feature -->
 <!DOCTYPE html>
 <html lang="en"><head>
 <title>NYS Thurway Traffic</title>
@@ -12,17 +9,25 @@
 <link href='http://fonts.googleapis.com/css?family=Comfortaa|McLaren' rel='stylesheet' type='text/css'>
 <link rel="stylesheet" href="css/headerStyle.css" type="text/css">
 <link rel="stylesheet" href="css/projectStyle.css" type="text/css">
+<script type="text/javascript" src="../lib/ga.js"></script>
 </head>
 
 <body>
 <div id="headerBox">
-<a href="../../"><h1>Evan Andrews <br>Experiments in Information Design</a>
+<a href="../"><h1>Evan Andrews <br>Experiments in Information Design</a>
   <a href="https://twitter.com/EvanSAndrews" target="_blank"><img id="twitter" src="img/icons/Twitter_logo_white.png" height="32" width="32"/></a>
   <a href="https://github.com/esa22" target="_blank"><img id="github" src="img/icons/GitHub-Mark-Light-32px.png"/></a>
   </h1>
 </div>
 <!--End of Common Header-->
+<div id="projectDiv"></div>
+<div id="narrative">
+<p>The New York State Thruway serves hundreds of thousands of travelers daily. Some use it to travel clear across the state, while others commute to work on it. The Thruway Authority charges tolls for most, but not all, of the Thruway's road sections. The two areas of the map that quickly call attention are the red-highlighted road sections in Buffalo and near the Tappan Zee Bridge. Both of these Thruway sections receive over 100,000 vehicles daily. Not coincidentally, both of these sections also have no toll charge and are probably heavily used by commuters.<p> 
 
+<p>This map makes clear that the New York State Thruway disproportionately serves intracity travel WITHIN New York State. Almost all of New York State's major cities are located on or near the Thruway, and the travel volume falls significantly at the western frontier (near Lakewood, NY), where there are no major New York cities.</p>     
+
+<p>The NYS Department of Transportation already makes <a href="https://www.dot.ny.gov/tdv">a similar map available</a> on their website, where they also provide <a href="https://www.dot.ny.gov/divisions/engineering/technical-services/highway-data-services/hdsb">the data</a> used in this project.</p>
+</div>
 <p></p>
 </body>
 <script src="lib/d3.js"></script>
@@ -33,7 +38,7 @@ var height = 480;
 var ls = 6;   //baseline linestroke size
 
 //create the svg element
-var svg = d3.select("body").append("svg")
+var svg = d3.select("#projectDiv").append("svg")
     .attr("height", height)
     .attr("width", width)
 
